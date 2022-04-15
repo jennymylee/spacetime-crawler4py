@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
+    # count words and keep track of frequency of words
     return [link for link in links if is_valid(link)]
 
 def extract_next_links(url, resp):
@@ -15,6 +16,13 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
+
+    if resp.status == 200:
+        if resp.raw_response.content:
+            print(resp.raw_response.content) # fixme debug
+            # check hyperlinks and scrape them
+    else:
+        print("An error occurred: ", resp.error)
     return list()
 
 def is_valid(url):
