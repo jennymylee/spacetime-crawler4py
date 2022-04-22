@@ -35,4 +35,8 @@ class Worker(Thread):
             time.sleep(self.config.time_delay)
         
         print('------ [WORKER.PY] REPORT ------')
+<<<<<<< HEAD
         scraper.report()
+=======
+        scraper.report()
+>>>>>>> 95305053b2ebf40b78c20a0dd1b66e908604673d

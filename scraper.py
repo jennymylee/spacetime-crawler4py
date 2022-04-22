@@ -19,7 +19,7 @@ INFINITE_URL_COUNT = defaultdict(int) # check if a certain domain/path has been 
 LONGEST_PAGE_COUNT = -1
 LONGEST_PAGE = ""
 WORDS_COUNT = defaultdict(int)
-THRESHOLD = 80 # infinite trap
+THRESHOLD = 20 # infinite trap
 BLACKLISTED = set()
 URL_CONTENT_LENGTH = {}
 
@@ -216,7 +216,6 @@ def extract_next_links(url, resp):
         
                             # ----------------  DISCOVER NEW URLS VIA BEAUTIFULSOUP ----------------
                         response = urllib.request.urlopen(url)
-
                         if response.getcode() == 200:
 
                             # --------- URL CONTENT LENGTH ---------
