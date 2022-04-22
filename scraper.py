@@ -19,7 +19,7 @@ INFINITE_URL_COUNT = defaultdict(int) # check if a certain domain/path has been 
 LONGEST_PAGE_COUNT = -1
 LONGEST_PAGE = ""
 WORDS_COUNT = defaultdict(int)
-THRESHOLD = 20 # infinite trap
+THRESHOLD = 80 # infinite trap
 BLACKLISTED = set()
 URL_CONTENT_LENGTH = {}
 
@@ -62,7 +62,7 @@ def report():
         for word, num_occ in sorted(WORDS_COUNT.items(), key=lambda item: item[1], reverse = True)[:50]:
             report_file.write('*** COMMON WORD ***   \n')
             report_file.write(word)
-            report_file.write('   *** COUNT ***   \n')
+            report_file.write('\n   *** COUNT ***   \n')
             report_file.write(str(num_occ))
             report_file.write('\n')
 
@@ -216,20 +216,21 @@ def extract_next_links(url, resp):
         
                             # ----------------  DISCOVER NEW URLS VIA BEAUTIFULSOUP ----------------
                         response = urllib.request.urlopen(url)
+
                         if response.getcode() == 200:
 
                             # --------- URL CONTENT LENGTH ---------
                             # add url and content length to.txt URL_CONTENT_LENGTH
                             # and write to urlcontentlength        
-                            URL_CONTENT_LENGTH[url] = response.getheader('Content-Length')
-                            print('========URL CONTENT LENGTH========', URL_CONTENT_LENGTH[url]) 
-                            with open('urlcontentlength.txt', 'a') as file:
-                                file.write('========URL CONTENT LENGTH========')
-                                file.write(url)
-                                file.write(': ')
-                                if URL_CONTENT_LENGTH[url] != None:
-                                    file.write(URL_CONTENT_LENGTH[url])
-                                file.write('\n')
+                            # URL_CONTENT_LENGTH[url] = response.getheaders('Content-Length')
+                            # print('========URL CONTENT LENGTH========', response.getheaders('Content-Length')) 
+                            # with open('urlcontentlength.txt', 'a') as file:
+                            #     file.write('========URL CONTENT LENGTH========')
+                            #     file.write(url)
+                            #     file.write(': ')
+                            #     if URL_CONTENT_LENGTH[url] != None:
+                            #         file.write(URL_CONTENT_LENGTH[url])
+                            #     file.write('\n')
 
                             # --------- GET ALL LINKS ---------
                             for link in soup.find_all('a'):
